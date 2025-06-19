@@ -39,6 +39,43 @@ def get_verse(book, chapter, verse, version="nkjv", tag=True):
         if v not in verses:
             return "Verse not found"
         body = f"        {v} {verses[v]}"
+        ref = f"{book.capitalize()} {chapter}:{v} {version.upper()}"
+        return f"{body}\n\n{ref}\n—from bbible by Biyi✨" if tag else f"{body}\n\n{ref}"
+
+    if isinstance(verse, (tuple, list)) and len(verse) == 2:
+        start, end = verse
+        lines = [
+            f"        {v} {verses[str(v)]}"
+            for v in range(start, end + 1)
+            if str(v) in verses
+        ]
+        if not lines:
+            return "No verses found in range"
+        body = "\n".join(lines)
+        ref = f"{book.capitalize()} {chapter}:{start}–{end} {version.upper()}"
+        return f"{body}\n\n{ref}\n—from bbible by Biyi✨" if tag else f"{body}\n\n{ref}"
+
+    return "Invalid verse input"
+
+    version = version.lower()
+    book = book.lower()
+    chapter = str(chapter)
+
+    data = load_version(version)
+    if not data:
+        return "Version not found"
+    if book not in data:
+        return "Book not found"
+    if chapter not in data[book]:
+        return "Chapter not found"
+
+    verses = data[book][chapter]
+
+    if isinstance(verse, int):
+        v = str(verse)
+        if v not in verses:
+            return "Verse not found"
+        body = f"        {v} {verses[v]}"
         ref = f"{book.capitalize()} {chapter}:{v}"
         return f"{body}\n\n{ref}\n—from bbible by Biyi✨" if tag else f"{body}\n\n{ref}"
 
