@@ -119,3 +119,37 @@ def get_versions():
         if filename.endswith(".json"):
             versions.append(filename.replace(".json", ""))
     return sorted(versions)
+
+def topic(query, version="nkjv", top_k=5, tag=True):
+    import pickle
+    import numpy as np
+    from sentence_transformers import SentenceTransformer
+    from sklearn.metrics.pairwise import cosine_similarity
+
+    version = version.lower()
+    embed_path = os.path.join(os.path.dirname(__file__), "data", f"embeddings_{version}.pkl")
+    if not os.path.exists(embed_path):
+        return f"Embeddings not found for version '{version}'. Please generate them first."
+
+    # Load embeddings
+    with open(embed_path, "rb") as f:
+        verse_embeddings = pickle.load(f)
+
+    # Prepare data
+    refs, texts, vectors = zip(*verse_embeddings)
+    vectors = np.array(vectors)
+
+    # Embed the query
+    model = SentenceTransformer("all-MiniLM-L6-v2")
+    query_vec = model.encode([query])
+
+    # Compute cosine similarity
+    sims = cosine_similarity(query_vec, vectors)[0]
+    top_indices = np.argsort(sims)[-top_k:][::-1]
+
+    # Format results
+    results = []
+    for i in top_indices:
+        results.append(f"        {texts[i]}\n{refs[i]} {version.upper()}")
+    
+    return "\n\n".join(results) + ("\n\n—from bbible by Biyi✨" if tag else "")
