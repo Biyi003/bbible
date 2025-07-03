@@ -1,30 +1,22 @@
-# bbible
+# 📖 bbible
 
-**bbible** is a Python library for exploring the Bible through both direct verse lookup and AI-powered semantic search.
+**bbible** is a lightweight and extensible Python library for Bible verse access and exploration — combining classic reference lookups with AI-powered semantic topic search.
 
-> 🙏 Find what you’re looking for — whether it’s by reference or meaning.
-
----
-
-## 🔥 Why bbible?
-
-- 🧠 **Semantic topic search**: Find verses by concept, not just keywords.  
-  _e.g., `.topic("grace")` returns verses about grace, trust, and forgiveness._
-- 🔍 **Verse-level lookup**: Fetch specific verses or ranges by book, chapter, and verse.
-- 📚 **Multi-version support**: Works with multiple translations (`nkjv`, `kjv`, more coming).
-- 💬 **Readable output**: Cleanly formatted and suitable for quoting or presentation.
+It helps you retrieve verses by **book/chapter/verse**, or discover scriptures related to **concepts like hope, peace, or grace**, using transformer embeddings.
 
 ---
 
-## 🚀 Quick Example
+## ✨ Features
 
-```python
-import bbible
+- 🔍 **Get verses by reference** (single or range)
+- 🧠 **Semantic topic search** – find verses that match meaning, not just keywords
+- 📚 **Multi-version support** – supports `nkjv`, `kjv`, and others via JSON
+- 💬 **Formatted output** – reader-friendly for display or printing
+- 📦 **Local-first design** – no API calls, 100% offline
 
-# Get a verse or passage
-print(bbible.get_verse("john", 3, 16))
-print(bbible.get_verse("psalms", 23, (1, 6)))
+---
 
-# Semantic search by topic
-print(bbible.topic("peace", top_k=3))
-print(bbible.topic("trust in God", version="kjv", top_k=5))
+## 📦 Installation
+
+```bash
+pip install bbible
