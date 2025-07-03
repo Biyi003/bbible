@@ -114,4 +114,14 @@ Returns a verse or range (tuple) formatted with or without attribution.
 ### 🔹 `topic(query, version="nkjv", top_k=5, tag=True)`
 Performs semantic search. Returns verses most related to the query.
 
+---
 
+## 📄 License
+
+MIT License © Biyi Adebayo  
+Built with ❤️ and the Word.
+
+## 🌐 Project Links
+
+- 📦 [PyPI](https://pypi.org/project/bbible)
+- 🛠 [GitHub](https://github.com/Biyi003/bbible)
