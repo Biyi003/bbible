@@ -7,3 +7,5 @@ dist/
 *.egg-info/
 .env
 .venv
+bbible/data/embeddings_*.pkl
+bbible/generate_embeddings.py
